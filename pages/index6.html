@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Анимация текста при клике</title>
+  <style>
+    /* Основные стили */
+    body {
+      font-family: Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-wrap: wrap;
+      height: 100vh;
+      margin: 0;
+      background-color: #f4f4f4;
+    }
+
+    .container {
+      text-align: center;
+      margin: 10px;
+    }
+
+    /* Стили для картинок */
+    .image {
+      cursor: pointer;
+      transition: transform 0.2s ease; /* Анимация при наведении мыши */
+      margin: 10px;
+      width: 150px;
+      height: 150px;
+    }
+
+    /* Анимация наведения мыши */
+    .image:hover {
+      transform: scale(1.1);
+    }
+
+    /* Стили для текста */
+    .text {
+      display: none; /* Текст изначально скрыт */
+      margin-top: 10px;
+      font-size: 16px;
+      color: #333;
+      animation: fadeIn 0.5s ease-in-out;
+    }
+
+    /* Анимация появления текста */
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(-10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Первая картинка и текст -->
+  <div class="container">
+    <img src="https://via.placeholder.com/150" alt="Картинка 1" class="image" id="clickImage1">
+    <div class="text" id="text1">Текст для первой картинки!</div>
+  </div>
+
+  <!-- Вторая картинка и текст -->
+  <div class="container">
+    <img src="https://via.placeholder.com/150/ff0000" alt="Картинка 2" class="image" id="clickImage2">
+    <div class="text" id="text2">Текст для второй картинки!</div>
+  </div>
+
+  <!-- Третья картинка и текст -->
+  <div class="container">
+    <img src="https://via.placeholder.com/150/0000ff" alt="Картинка 3" class="image" id="clickImage3">
+    <div class="text" id="text3">Текст для третьей картинки!</div>
+  </div>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      // Создаем массив для всех картинок и их текстов
+      const imageTextPairs = [
+        { imageId: 'clickImage1', textId: 'text1' },
+        { imageId: 'clickImage2', textId: 'text2' },
+        { imageId: 'clickImage3', textId: 'text3' },
+      ];
+
+      // Добавляем обработчик кликов для каждой картинки
+      imageTextPairs.forEach(pair => {
+        const image = document.getElementById(pair.imageId);
+        const textDiv = document.getElementById(pair.textId);
+
+        image.addEventListener("click", function () {
+          if (textDiv.style.display === "block") {
+            textDiv.style.display = "none";
+          } else {
+            textDiv.style.display = "block";
+          }
+        });
+      });
+    });
+  </script>
+</body>
+</html>
