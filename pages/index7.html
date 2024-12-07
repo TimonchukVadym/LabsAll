@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Дизайн Чат-бота</title>
+  <style>
+    /* Загальні стилі сторінки */
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      height: 100vh;
+      background-color: #f4f4f4;
+    }
+
+    /* Стилі для кнопки відкриття чат-бота */
+    .toggle-btn {
+      position: fixed;
+      bottom: 10px;
+      right: 10px;
+      background: #007bff;
+      color: white;
+      padding: 10px 15px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+      transition: background 0.2s ease;
+    }
+
+    .toggle-btn:hover {
+      background: #0056b3;
+    }
+
+    /* Стилі для контейнера чат-бота */
+    .chatbot-container {
+      position: fixed;
+      bottom: 10px;
+      right: 10px;
+      width: 350px;
+      height: 400px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+      background: #ffffff;
+      border-radius: 10px;
+      display: none; /* Початково прихований */
+      flex-direction: column;
+      z-index: 1000;
+    }
+
+    /* Заголовок інтерфейсу */
+    .chatbot-header {
+      background: #007bff;
+      color: white;
+      padding: 10px;
+      text-align: center;
+      font-size: 16px;
+      border-top-left-radius: 10px;
+      border-top-right-radius: 10px;
+    }
+
+    /* Основна область для повідомлень */
+    .chatbot-body {
+      flex-grow: 1;
+      padding: 10px;
+      overflow-y: auto;
+      background: #f9f9f9;
+      border: 1px solid #ddd;
+      border-bottom: none;
+    }
+
+    /* Поле вводу та кнопка відправки */
+    .chatbot-footer {
+      padding: 10px;
+      background: #eeeeee;
+      border: 1px solid #ddd;
+      display: flex;
+      align-items: center;
+    }
+
+    .chatbot-footer input[type="text"] {
+      flex-grow: 1;
+      padding: 8px;
+      border: 1px solid #aaa;
+      border-radius: 5px;
+    }
+
+    .chatbot-footer button {
+      margin-left: 8px;
+      padding: 8px 12px;
+      background: #007bff;
+      border: none;
+      color: #fff;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background 0.2s ease;
+    }
+
+    .chatbot-footer button:hover {
+      background: #0056b3;
+    }
+  </style>
+</head>
+<body>
+  <!-- Кнопка для відкриття/сворачування чат-бота -->
+  <button class="toggle-btn" id="toggleChatbot">Відкрити чат-бот</button>
+
+  <!-- Основний контейнер для інтерфейсу чат-бота -->
+  <div class="chatbot-container" id="chatbot">
+    <!-- Заголовок інтерфейсу -->
+    <div class="chatbot-header">Чат-бот</div>
+
+    <!-- Основна область для повідомлень -->
+    <div class="chatbot-body" id="chatBody">
+      <div>Вітаю! Чим я можу вам допомогти?</div>
+    </div>
+
+    <!-- Поле вводу та кнопка для відправки -->
+    <div class="chatbot-footer">
+      <input type="text" id="userInput" placeholder="Введіть повідомлення...">
+      <button id="sendButton">Відправити</button>
+    </div>
+  </div>
+
+  <script>
+    const chatbotContainer = document.getElementById('chatbot');
+    const toggleButton = document.getElementById('toggleChatbot');
+    const sendButton = document.getElementById('sendButton');
+    const userInput = document.getElementById('userInput');
+    const chatBody = document.getElementById('chatBody');
+
+    // Відкриття/сворачування інтерфейсу при кліку на кнопку
+    toggleButton.addEventListener('click', () => {
+      if (chatbotContainer.style.display === 'block') {
+        chatbotContainer.style.display = 'none';
+      } else {
+        chatbotContainer.style.display = 'flex';
+      }
+    });
+
+    // Обробка повідомлення при кліку на кнопку "Відправити"
+    sendButton.addEventListener('click', () => {
+      const message = userInput.value.trim();
+      if (message) {
+        // Створення елементу з повідомленням користувача
+        const userMessage = document.createElement('div');
+        userMessage.textContent = `Ви: ${message}`;
+        chatBody.appendChild(userMessage);
+
+        // Відповідь бота
+        const botResponse = document.createElement('div');
+        botResponse.textContent = 'Бот: Дякую за ваше повідомлення!';
+        chatBody.appendChild(botResponse);
+
+        // Прокручування вниз до останнього повідомлення
+        chatBody.scrollTop = chatBody.scrollHeight;
+
+        // Очищення поля вводу
+        userInput.value = '';
+      }
+    });
+  </script>
+</body>
+</html>
